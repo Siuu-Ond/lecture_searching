@@ -17,7 +17,11 @@ def read_data(file_name, field):
             - None: If the field is not supported.
     """
     keys = []
-    with open(file_name, "r", encoding="utf-8") as file:
+
+    cwd_path = Path.cwd()
+    file_path = cwd_path / file_name
+
+    with open(file_path, "r", encoding="utf-8") as file:
         data = json.load(file)
 
 
@@ -33,14 +37,8 @@ def read_data(file_name, field):
         if key == field:
             return value
 
-
-    # get current working directory path
-    cwd_path = Path.cwd()
-    file_path = cwd_path / file_name
-
-
 def linear_search(search_field, look_num):
-    result = {"positions":"","count":""}
+    result = {"positions":[],"count": ""}
     indexs = []
     count = 0
 
@@ -51,15 +49,40 @@ def linear_search(search_field, look_num):
             count += 1
 
     result["positions"] = indexs
-    result["count"] = count
-    print(indexs)
-    print(count)
+    result["count"] = str(count)
+
     return result
 
+def binary_search(search_field, look_number):
+
+
+
+    left_num_in = 0
+    right_num_in = len(search_field) - 1
+
+    while left_num_in <= right_num_in:
+        midle_num = (right_num_in + left_num_in) // 2
+        if search_field[midle_num] == look_number:
+            return midle_num
+
+        elif search_field[midle_num] < look_number:
+            left_num_in = midle_num + 1
+
+        else:
+            right_num_in = midle_num - 1
+
+
+    return "None"
+
+
+
+
+
+
 def main():
-    sequential_data = (read_data("sequential.json", "unordered_numbers"))
+    sequential_data = (read_data("sequential.json", "ordered_numbers"))
     print(sequential_data)
     print(linear_search(sequential_data, 5))
-
+    print(binary_search(sequential_data, 64))
 if __name__ == "__main__":
     main()
