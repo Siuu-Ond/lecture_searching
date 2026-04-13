@@ -25,26 +25,23 @@ def read_data(file_name, field):
     for key in data:
         keys.append(key)
 
-    print(f"Klíče {keys}")
+    print(f"Klíče: {keys}")
     if field not in keys:
         return "None"
 
-
-
-
-
+    for key, value in data.items():
+        if key == field:
+            return value
 
 
     # get current working directory path
     cwd_path = Path.cwd()
-    
     file_path = cwd_path / file_name
 
 
 def main():
-    pass
-
+    sequential_data = (read_data("sequential.json", "unordered_numbers"))
+    print(sequential_data)
 
 if __name__ == "__main__":
     main()
-    print(read_data("sequential.json", "dna_sequence"))
