@@ -1,7 +1,6 @@
 from pathlib import Path
 import json
 
-
 def read_data(file_name, field):
     """
     Reads a JSON file and returns data for a given field.
@@ -17,6 +16,25 @@ def read_data(file_name, field):
             - str: If field is 'dna_sequence'.
             - None: If the field is not supported.
     """
+    keys = []
+    with open(file_name, "r", encoding="utf-8") as file:
+        data = json.load(file)
+
+
+
+    for key in data:
+        keys.append(key)
+
+    print(f"Klíče {keys}")
+    if field not in keys:
+        return "None"
+
+
+
+
+
+
+
     # get current working directory path
     cwd_path = Path.cwd()
     
@@ -29,3 +47,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    print(read_data("sequential.json", "dna_sequence"))
